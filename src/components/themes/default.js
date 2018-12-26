@@ -1,5 +1,7 @@
+import { createGlobalStyle } from 'styled-components'
+
 // https://github.com/diegohaz/arc/wiki/Styling
-const theme = {
+export const theme = {
   palette: {
     primary: ['#1976d2', '#2196f3', '#71bcf7', '#c2e2fb'],
     secondary: ['#c2185b', '#e91e63', '#f06292', '#f8bbd0'],
@@ -28,4 +30,11 @@ const theme = {
   },
 }
 
-export default theme
+export const GlobalStyles = createGlobalStyle`
+  body {
+    margin: 0;
+  }
+  body.ReactModal__Body--open {
+    overflow: hidden;
+  }
+`

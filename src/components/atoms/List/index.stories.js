@@ -10,13 +10,6 @@ storiesOf('List', module)
       <li>Item 3</li>
     </List>
   ))
-  .add('ordered', () => (
-    <List ordered>
-      <li>Item 1</li>
-      <li>Item 2</li>
-      <li>Item 3</li>
-    </List>
-  ))
   .add('palette', () => (
     <List palette="primary">
       <li>Item 1</li>

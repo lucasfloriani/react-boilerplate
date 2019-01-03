@@ -1,27 +1,28 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import TableCell from '.'
 
-const wrap = (props = {}) => shallow(<TableCell {...props} />).dive()
+const wrapWithShallow = (props = {}) => shallow(<TableCell {...props} />)
+const wrapWithMount = (props = {}) => mount(<TableCell {...props} />)
 
 describe('<TableCell />', () => {
   it('renders children when passed in', () => {
-    const wrapper = wrap({ children: 'test' })
+    const wrapper = wrapWithShallow({ children: 'test' })
     expect(wrapper.contains('test')).toBe(true)
   })
 
   it('renders props when passed in', () => {
-    const wrapper = wrap({ id: 'foo' })
+    const wrapper = wrapWithShallow({ id: 'foo' })
     expect(wrapper.find({ id: 'foo' })).toHaveLength(1)
   })
 
   it('renders td by default', () => {
-    const wrapper = wrap()
+    const wrapper = wrapWithMount()
     expect(wrapper.find('td')).toHaveLength(1)
   })
 
   it('renders th when prop heading is passed in', () => {
-    const wrapper = wrap({ heading: true })
+    const wrapper = wrapWithMount({ heading: true })
     expect(wrapper.find('th')).toHaveLength(1)
   })
 })

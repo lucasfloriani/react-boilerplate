@@ -1,34 +1,42 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import Tooltip, { opposite, perpendicular, perpendicularAxis } from '.'
 
-const wrap = (props = {}) => (
-  shallow(<Tooltip data-title="title" {...props}><span>test</span></Tooltip>).dive()
-)
+const wrapWithShallow = (props = {}) => {
+  return shallow(<Tooltip data-title="title" {...props}><span>test</span></Tooltip>)
+}
+const wrapWithMount = (props = {}) => {
+  return mount(<Tooltip data-title="title" {...props}><span>test</span></Tooltip>)
+}
 
 describe('<Tooltip />', () => {
-  it('renders with different props', () => {
-    wrap({ align: 'start' })
-    wrap({ align: 'end' })
+  it('render with align start prop', () => {
+    const wrapper = wrapWithMount({ align: 'start' })
+    expect(wrapper.exists()).toBe(true)
+  })
+
+  it('render with align end prop', () => {
+    const wrapper = wrapWithMount({ align: 'end' })
+    expect(wrapper.exists()).toBe(true)
   })
 
   it('renders children when passed in', () => {
-    const wrapper = wrap()
+    const wrapper = wrapWithShallow()
     expect(wrapper.contains('test')).toBe(true)
   })
 
   it('renders props when passed in', () => {
-    const wrapper = wrap({ id: 'foo' })
+    const wrapper = wrapWithShallow({ id: 'foo' })
     expect(wrapper.find({ id: 'foo' })).toHaveLength(1)
   })
 
   it('renders data-title', () => {
-    const wrapper = wrap()
+    const wrapper = wrapWithShallow()
     expect(wrapper.find({ 'data-title': 'title' })).toHaveLength(1)
   })
 
   it('renders tabIndex', () => {
-    const wrapper = wrap()
+    const wrapper = wrapWithShallow()
     expect(wrapper.find({ tabIndex: 0 })).toHaveLength(1)
   })
 

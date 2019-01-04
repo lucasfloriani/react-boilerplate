@@ -3,7 +3,6 @@ import { mount, shallow } from 'enzyme'
 import TableCell from '.'
 
 const wrapWithShallow = (props = {}) => shallow(<TableCell {...props} />)
-const wrapWithMount = (props = {}) => mount(<TableCell {...props} />)
 
 describe('<TableCell />', () => {
   it('renders children when passed in', () => {
@@ -17,12 +16,29 @@ describe('<TableCell />', () => {
   })
 
   it('renders td by default', () => {
-    const wrapper = wrapWithMount()
+    const wrapper = mount(
+      <table>
+        <tbody>
+          <tr>
+            <TableCell />
+          </tr>
+        </tbody>
+      </table>
+    )
     expect(wrapper.find('td')).toHaveLength(1)
   })
 
   it('renders th when prop heading is passed in', () => {
-    const wrapper = wrapWithMount({ heading: true })
+    const props = { heading: true }
+    const wrapper = mount(
+      <table>
+        <thead>
+          <tr>
+            <TableCell {...props} />
+          </tr>
+        </thead>
+      </table>
+    )
     expect(wrapper.find('th')).toHaveLength(1)
   })
 })
